@@ -12,7 +12,11 @@ AC_CONFIG_SRCDIR([hello.c])
 AC_CONFIG_HEADERS([config.h])
 
 # Put autotools aux files in subdir to reduce clutter:
-AC_CONFIG_AUX_DIR([Makefile])
+AC_CONFIG_AUX_DIR([build-aux])
+
+# Enable "automake" to simplify creating Makefiles
+AM_INIT_AUTOMAKE([1.11 -Wall -Werror])
+AC_CONFIG_FILES([Makefile])
 
 # Look for a C compiler:
 AC_PROG_CC
