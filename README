@@ -1,3 +1,78 @@
-This repository is useless to other people. It is a project for me to learn how to use GNU Autotools.
+-*- mode: org -*-
 
+This repository is useless to other people. It is a project for me to
+learn how to use GNU Autotools in an emacs environment.
 
+* What I did to make this project:
+  1. I made hello.c
+     
+     hello.c:
+     #+begin_src c
+       #include <stdio.h>
+
+       int main()
+       {
+	 printf("Hello world\n");
+	 return 0;
+       }
+     #+end_src
+
+  2. I made configure.ac
+     
+     configure.ac
+     #+begin_src m4
+       # Autoconf requirements
+       # Initialize, but use more options. Note parameters brackets and whitespace.
+       AC_INIT([hello], [0.01], [dwheeler@dwheeler.com],
+				       [hello], [http://www.dwheeler.com])
+       #Force autoconf to be at least this version number:
+       AC_PREREQ([2.68])
+
+       #Safety Check - list a source file that wouldn't be in other directories:
+       AC_CONFIG_SRCDIR([hello.c])
+
+       # Put config results here, so we can easily #include them:
+       AC_CONFIG_HEADERS([config.h])
+
+       # Put autotools aux files in subdir to reduce clutter:
+       AC_CONFIG_AUX_DIR([build-aux])
+
+       # Enable "automake" to simplify creating Makefiles
+       AM_INIT_AUTOMAKE([1.11 -Wall -Werror])
+       AC_CONFIG_FILES([Makefile])
+
+       # Look for a C compiler:
+       AC_PROG_CC
+
+       # Its possible to check for: more programs, libraries, header files, types, structures, compiler characteristics, library functions, system services.
+
+       # Final output
+       AC_OUTPUT
+     #+end_src
+
+  3. I made Makefile.am
+     #+begin_src m4
+       bin_PROGRAMS = hello
+       hello_SOURCES = hello.c
+     #+end_src
+
+  4. I created some file that autoreconf needs in order to auto
+     configure stuff.
+
+     #+begin_src bash
+       list="AUTHORS ChangeLog COPYING INSTALL NEWS README"
+       touch $list
+     #+end_src
+
+  5. 
+
+* Using this project to learn Autotools
+** Things to learn
+*** What is staged and unstaged
+*** Editing files quickly
+    How can I get the files I want to
+    change to show up in the
+    magit-status page so that I can
+    change them by pressing enter and
+    editing it. This way I dont have to
+*** 
